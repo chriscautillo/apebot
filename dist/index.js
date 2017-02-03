@@ -1,8 +1,8 @@
 'use strict';
 
-var _store = require('./store');
+var _botContext = require('./botContext');
 
-var _store2 = _interopRequireDefault(_store);
+var _botContext2 = _interopRequireDefault(_botContext);
 
 var _OAuth = require('./Auth/OAuth');
 
@@ -21,12 +21,12 @@ var client = new Commando.Client({
     owner: authInfo.owner
 });
 
+var bCtx = new _botContext2.default(client, authInfo);
+
 // Attach events
-(0, _Events2.default)(client);
+(0, _Events2.default)(client, bCtx);
 
 // Login
 client.login(authInfo.token).then(function () {
-    // Setup store
-    _store2.default.client = client;
-    _store2.default.user = client.user;
+    bCtx.onLogin();
 });

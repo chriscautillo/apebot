@@ -1,4 +1,4 @@
-import store from './store';
+import botContext from './botContext';
 import {readAuth} from './Auth/OAuth';
 import RegisterEvents from './Register/Events';
 
@@ -11,12 +11,12 @@ const client = new Commando.Client({
     owner: authInfo.owner
 });
 
+const bCtx = new botContext(client, authInfo);
+
 // Attach events
-RegisterEvents(client);
+RegisterEvents(client, bCtx);
 
 // Login
 client.login(authInfo.token).then(() => {
-    // Setup store
-    store.client = client;
-    store.user = client.user;
+    bCtx.onLogin();
 });
