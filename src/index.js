@@ -11,6 +11,7 @@ const client = new Commando.Client({
     owner: authInfo.owner
 });
 
+// This will be the 'this' context for events.
 const bCtx = new botContext(client, authInfo);
 
 // Attach events

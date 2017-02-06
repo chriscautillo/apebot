@@ -1,6 +1,8 @@
 import {message} from '../Events/Message';
 import {ready, disconnect, reconnecting} from '../Events/Status';
 
+// This function binds the context to the called function
+// and cleanly handles any errors that are thrown.
 function safeEvent(bCtx, handler) {
     return function (arg) {
         try {
