@@ -24,7 +24,9 @@ function runHandler(handlerGroup, message) {
         let args = handlerGroup.sort(sortMessageResponses).map((rowData) => rowData.message_responses_value);
         args.unshift(message);
         // Run the success action
-        MessageActions[baseHandler.messages_action_name].apply(this, args);
+        MessageActions[baseHandler.messages_action_name].apply(this, args).catch((err) => {
+            console.log(err);
+        });
     }
 
 }
