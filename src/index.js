@@ -20,4 +20,7 @@ RegisterEvents(client, bCtx);
 // Login
 client.login(authInfo.token).then(() => {
     bCtx.onLogin();
+}).catch((ex) => {
+    console.log(ex);
+    console.log('Unable to login.');
 });

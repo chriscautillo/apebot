@@ -1,5 +1,5 @@
 export default {
-    equal(message, expected) {
+    equals(message, expected) {
         return message.content === expected;
     },
     contains(message, expected) {
@@ -8,7 +8,7 @@ export default {
     regex(message, expected) {
         try {
             let re = new RegExp(expected, 'gi');
-            return re.test(message);
+            return re.test(message.content);
         } catch(ex) {
             return false;
         }

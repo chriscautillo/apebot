@@ -1,25 +1,30 @@
-import {message} from '../Events/Message';
+import {messageHandler} from '../Events/Message/Message';
 import {ready, disconnect, reconnecting} from '../Events/Status';
 
 // This function binds the context to the called function
 // and cleanly handles any errors that are thrown.
 function safeEvent(bCtx, handler) {
     return function (arg) {
+        let p1;
         try {
             switch (arguments.length) {
                 case 0:
-                    handler.call(bCtx);
+                    p1 = handler.call(bCtx);
                     break;
                 case 1: {
-                    handler.call(bCtx, arg);
+                    p1 = handler.call(bCtx, arg);
                     break;
                 }
                 default: {
-                    handler.apply(bCtx, arguments);
+                    p1 = handler.apply(bCtx, arguments);
                 }
             }
+            // Global error handling for events.
+            p1.catch((ex) => console.log(ex));
         } catch (ex) {
             console.log(ex);
+            console.log(handler);
+            console.log('Something has gone terribly wrong.');
         }
     }
 }
@@ -30,5 +35,5 @@ export default function (client, bCtx) {
     client.on('disconnect', safeEvent(bCtx, disconnect));
     client.on('reconnecting', safeEvent(bCtx, reconnecting));
     // Message
-    client.on('message', safeEvent(bCtx, message));
+    client.on('message', safeEvent(bCtx, messageHandler));
 }

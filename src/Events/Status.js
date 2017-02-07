@@ -1,11 +1,20 @@
 export function ready() {
-    console.log('Dadbot ready');
+    return new Promise((resolve) => {
+        console.log('Dadbot ready');
+        resolve();
+    });
 }
 
 export function reconnecting() {
-    console.log('Dadbot reconnecting');
+    return new Promise((resolve) => {
+        console.log('Dadbot reconnecting');
+        resolve();
+    });
 }
 
 export function disconnect() {
-    console.log('Dadbot disconnected')
+    return new  Promise((resolve) => {
+        console.log('Dadbot disconnected');
+        resolve();
+    });
 }

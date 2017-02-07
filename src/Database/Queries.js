@@ -1,6 +1,6 @@
 function asyncResolution(resolve, reject) {
-    return function queryHandler(err, rows, fields) {
-        if (!err) {
+    return function queryHandler(ex, rows, fields) {
+        if (!ex) {
             resolve({
                 rows: rows,
                 fields: fields
@@ -26,7 +26,7 @@ export function getUsers(connection) {
 }
 
 export function getMessageHandlers(connection) {
-    // Get the message handlers from the database
+    // Get the messageHandler handlers from the database
     let queryOptions = {
         nestTables: '_',
         sql: 'SELECT * FROM messages INNER JOIN message_responses ON message_responses.message_id = messages.id ORDER BY messages.id DESC'

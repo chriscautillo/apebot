@@ -1,9 +1,11 @@
+import wrappers from '../../wrappers';
+
 export default {
     reply(message, response) {
         // Handle multi-option response
         if (arguments.length > 2) {
             let responseLength = arguments.length -1;
-            let responseIndex = Math.floor(Math.random() * responseLength);
+            let responseIndex = Math.floor(wrappers.random() * responseLength);
             return message.reply(arguments[responseIndex + 1]);
         } else {
             return message.reply(response);
@@ -16,6 +18,6 @@ export default {
         return message.member.ban(days);
     },
     setName(message, name) {
-        return message.setNickname(name);
+        return message.member.setNickname(name);
     }
 }
