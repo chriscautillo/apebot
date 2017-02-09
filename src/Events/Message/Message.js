@@ -4,8 +4,8 @@ import MessageActions from './MessageActions';
 import {getMessageHandlers} from '../../Database/Queries';
 
 function sortMessageResponses(_a, _b) {
-    let a = _a.message_responses_index;
-    let b = _b.message_responses_index;
+    let a = _a.response_arguments_index;
+    let b = _b.response_arguments_index;
     if (a > b) {
         return 1;
     } else if (b > a) {
@@ -19,12 +19,12 @@ function runHandler(handlerGroup, message) {
     // Data from the messages table will be the same for all records, so use the first one.
     let baseHandler = handlerGroup[0];
     // Check that the messageHandler meets the expected match type and value.
-    if (MatchTypes[baseHandler.messages_match_type](message, baseHandler.messages_match_value)) {
+    if (MatchTypes[baseHandler.expected_messages_match_type_name](message, baseHandler.expected_messages_match_value)) {
         // Collect all the values from the joined message_responses table, in the order of their index.
-        let args = handlerGroup.sort(sortMessageResponses).map((rowData) => rowData.message_responses_value);
+        let args = handlerGroup.sort(sortMessageResponses).map((rowData) => rowData.response_arguments_value);
         args.unshift(message);
         // Run the success action
-        MessageActions[baseHandler.messages_action_name].apply(this, args).catch((ex) => {
+        MessageActions[baseHandler.expected_messages_message_action_name].apply(this, args).catch((ex) => {
             console.log(ex);
         });
     }
@@ -39,7 +39,7 @@ export function messageHandler(message) {
 
         getMessageHandlers(this.connection).then((result) => {
             //Collect all of the same messageHandler handlers together
-            let handlers = lodash.groupBy(result.rows, 'messages_id');
+            let handlers = lodash.groupBy(result.rows, 'expected_messages_id');
             Object.keys(handlers).forEach((key) => {
                 let handler = handlers[key];
                 // If there is a messageHandler handler run it.

@@ -29,7 +29,7 @@ export function getMessageHandlers(connection) {
     // Get the messageHandler handlers from the database
     let queryOptions = {
         nestTables: '_',
-        sql: 'SELECT * FROM messages INNER JOIN message_responses ON message_responses.message_id = messages.id ORDER BY messages.id DESC'
+        sql: 'SELECT * FROM expected_messages LEFT JOIN response_arguments ON response_arguments.expected_message_id = expected_messages.id ORDER BY expected_messages.id DESC'
     };
     return asyncQuery(connection, queryOptions);
 }
