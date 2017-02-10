@@ -13,11 +13,11 @@ describe('Message Handler', () => {
 
         messageHandler.call(new TestContextFactory([
             {
-                messages_id: 1,
-                messages_match_type: 'equals',
-                messages_match_value: 'ping',
-                message_responses_value: 'pong',
-                messages_action_name: 'reply'
+                expected_messages_id: 1,
+                response_arguments_value: 'pong',
+                expected_messages_match_value: 'ping',
+                expected_messages_match_type_name: 'equals',
+                expected_messages_message_action_name: 'reply'
             }
         ]), testMessage).then(() => {
             expect(testMessage.reply.calledWith('pong')).to.be.true;
