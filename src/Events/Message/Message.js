@@ -37,7 +37,12 @@ export function messageHandler(message) {
             return;
         }
 
-        getMessageHandlers(this.connection).then((result) => {
+        // Only response to guild messages
+        if (!message.guild || !message.guild.id) {
+            return;
+        }
+
+        getMessageHandlers(this.connection, message.guild.id).then((result) => {
             //Collect all of the same messageHandler handlers together
             let handlers = lodash.groupBy(result.rows, 'message_rules_id');
             Object.keys(handlers).forEach((key) => {

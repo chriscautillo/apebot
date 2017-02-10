@@ -25,11 +25,16 @@ export function getUsers(connection) {
     return asyncQuery(connection, queryOptions);
 }
 
-export function getMessageHandlers(connection) {
+export function getMessageHandlers(connection, guildID) {
     // Get the messageHandler handlers from the database
     let queryOptions = {
         nestTables: '_',
-        sql: 'SELECT * FROM message_rules LEFT JOIN response_arguments ON response_arguments.message_rule_id = message_rules.id ORDER BY message_rules.id DESC'
+        sql: 'SELECT * FROM message_rules ' +
+        'LEFT JOIN response_arguments ' +
+        'ON response_arguments.message_rule_id = message_rules.id ' +
+        'WHERE message_rules.guild_real_id = ?' +
+        'ORDER BY message_rules.id DESC',
+        values: [guildID]
     };
     return asyncQuery(connection, queryOptions);
 }
