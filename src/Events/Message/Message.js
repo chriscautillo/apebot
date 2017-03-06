@@ -59,7 +59,6 @@ export function messageHandler(DadBot, message) {
     if (!message.guild || !message.guild.id) {
         return;
     }
-
     // Return handler promise
     return getMessageHandlers(DadBot.db, message.guild.id).then(
         (result) => {

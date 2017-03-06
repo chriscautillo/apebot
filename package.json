@@ -26,7 +26,7 @@
     "build": "webpack",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "start": "webpack && node --harmony dist/server.js",
-    "test": "babel-node ./node_modules/.bin/isparta cover _mocha"
+    "test": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha"
   },
   "author": "Sawyer Hopkins",
   "license": "MIT"

@@ -2,7 +2,7 @@
  * Unit Test for Message Type Matching
  */
 
-import MatchTypes from '../../../srcOld/Events/Message/MatchTypes';
+import MatchTypes from '../../../src/Events/Message/MatchTypes';
 
 let expect = require('chai').expect;
 
