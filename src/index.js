@@ -1,26 +1,27 @@
-import botContext from './botContext';
-import {readAuth} from './Auth/OAuth';
-import RegisterEvents from './Register/Events';
+// Stack trace support
+import { install } from 'source-map-support'
+install()
+
+import DadBot from './DadBot'
+import {readAuth} from './Auth/OAuth'
+import Client from './Interfaces/Client'
+import Database from './Interfaces/Database'
 
 // Get auth info
-let authInfo = readAuth();
+let AppAuth = readAuth()
 
-// Create the new discord client
-const Commando = require('discord.js');
-const client = new Commando.Client({
-    owner: authInfo.owner
-});
+// Create Interfaces
+let AppDatabase = new Database(AppAuth)
+let AppClient = new Client(require('discord.js-commando'), AppAuth)
 
-// This will be the 'this' context for events.
-const bCtx = new botContext(client, authInfo);
+// Create Bot
+let AppBot = new DadBot(AppClient, AppDatabase, AppAuth)
 
-// Attach events
-RegisterEvents(client, bCtx);
-
-// Login
-client.login(authInfo.token).then(() => {
-    bCtx.onLogin();
-}).catch((ex) => {
-    console.log(ex);
-    console.log('Unable to login.');
-});
+// Start Bot
+AppBot.start().then(
+    () => {
+        console.log('DadBot started')
+    }
+).catch(() => {
+    console.log('Unable to start bot.')
+})

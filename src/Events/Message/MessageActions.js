@@ -1,23 +1,22 @@
-import wrappers from '../../wrappers';
+import wrappers from '../../Wrappers/Math';
 
 export default {
-    reply(message, response) {
+    reply(DadBot, message, ...args) {
         // Handle multi-option response
-        if (arguments.length > 2) {
-            let responseLength = arguments.length -1;
-            let responseIndex = Math.floor(wrappers.random() * responseLength);
-            return message.reply(arguments[responseIndex + 1]);
+        if (args.length > 1) {
+            let responseIndex = Math.floor(wrappers.random() * args.length);
+            return message.reply(args[responseIndex]);
         } else {
-            return message.reply(response);
+            return message.reply(args[0]);
         }
     },
-    kick(message) {
+    kick(DadBot, message) {
         return message.member.kick();
     },
-    ban(message, days) {
+    ban(DadBot, message, days) {
         return message.member.ban(days);
     },
-    setName(message, name) {
+    setName(DadBot, message, name) {
         return message.member.setNickname(name);
     }
 }

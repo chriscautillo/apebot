@@ -1,31 +1,20 @@
-function asyncResolution(resolve, reject) {
-    return function queryHandler(ex, rows, fields) {
-        if (!ex) {
-            resolve({
-                rows: rows,
-                fields: fields
-            });
-        } else {
-            console.log('query error');
-            reject();
-        }
-    }
-}
-
-function asyncQuery(connection, queryOptions) {
-    return new Promise((resolve, reject) => {
-        connection.query(queryOptions, asyncResolution(resolve, reject))
-    });
-}
-
-export function getUsers(connection) {
+/**
+ * Gets all users from the users table
+ * @param database
+ */
+export function getUsers(database) {
     let queryOptions = {
         sql: 'SELECT * from users'
     };
-    return asyncQuery(connection, queryOptions);
+    return database.query(queryOptions)
 }
 
-export function getMessageHandlers(connection, guildID) {
+/**
+ * Gets message rules and the associated arguments by guildID
+ * @param database
+ * @param guildID
+ */
+export function getMessageHandlers(database, guildID) {
     // Get the messageHandler handlers from the database
     let queryOptions = {
         nestTables: '_',
@@ -36,5 +25,5 @@ export function getMessageHandlers(connection, guildID) {
         'ORDER BY message_rules.id DESC',
         values: [guildID]
     };
-    return asyncQuery(connection, queryOptions);
+    return database.query(queryOptions)
 }

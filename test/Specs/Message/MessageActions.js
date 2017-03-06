@@ -3,8 +3,8 @@
  */
 
 import {messageFactory} from '../helpers';
-import wrapper from '../../../src/wrappers';
-import MessageActions from '../../../src/Events/Message/MessageActions';
+import wrapper from '../../../srcOld/wrappers';
+import MessageActions from '../../../srcOld/Events/Message/MessageActions';
 
 const sinon = require('sinon');
 const expect = require('chai').expect;
