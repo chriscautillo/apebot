@@ -4,8 +4,10 @@ install()
 
 import DadBot from './DadBot'
 import {readAuth} from './Auth/OAuth'
+import Logger from './Interfaces/Logger'
 import Client from './Interfaces/Client'
 import Database from './Interfaces/Database'
+
 
 // Get auth info
 let AppAuth = readAuth()
@@ -20,8 +22,8 @@ let AppBot = new DadBot(AppClient, AppDatabase, AppAuth)
 // Start Bot
 AppBot.start().then(
     () => {
-        console.log('DadBot started')
+        Logger.log('DadBot started')
     }
 ).catch(() => {
-    console.log('Unable to start bot.')
+    Logger.log('Unable to start bot.')
 })

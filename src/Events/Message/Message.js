@@ -1,5 +1,6 @@
 import lodash from 'lodash';
 import MatchTypes from './MatchTypes';
+import Logger from '../../Interfaces/Logger'
 import MessageActions from './MessageActions';
 import {getMessageHandlers} from '../../Database/Queries';
 
@@ -36,9 +37,9 @@ function runHandler(DadBot, handlerGroup, message) {
         let args = handlerGroup.sort(sortMessageResponses).map((rowData) => rowData.response_arguments_value);
         // Run the success action
         MessageActions[baseHandler.message_rules_message_action_name](DadBot, message, ...args).then(() => {
-            console.log('Handling input from ' + message.author.id)
+            Logger.log('Handling input from ' + message.author.id)
         }).catch((ex) => {
-            console.log(ex);
+            Logger.log(ex);
         });
     }
 }

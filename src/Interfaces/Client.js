@@ -1,3 +1,5 @@
+import Logger from './Logger'
+
 export default class Client
 {
     constructor(ClientLib, auth) {
@@ -32,15 +34,15 @@ export default class Client
                 // If the callback returns a promise, cleanly handle exceptions
                 if (p.catch) {
                     p.catch(ex => {
-                        console.log(ex)
-                        console.log('Error handling ' + event)
+                        Logger.log(ex)
+                        Logger.log('Error handling ' + event)
                     })
                 } else {
-                    console.warn('Handler for event ' + event + ' did not return a promise.')
+                    Logger.log('Handler for event ' + event + ' did not return a promise.')
                 }
             } catch(ex) {
-                console.log(ex)
-                console.log('Error handling ' + event)
+                Logger.log(ex)
+                Logger.log('Error handling ' + event)
             }
         })
     }

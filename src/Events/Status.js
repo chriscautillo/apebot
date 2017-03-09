@@ -1,20 +1,22 @@
+import Logger from '../Interfaces/Logger'
+
 export function ready() {
     return new Promise((resolve) => {
-        console.log('Dadbot ready');
+        Logger.log('Dadbot ready');
         resolve();
     });
 }
 
 export function reconnecting() {
     return new Promise((resolve) => {
-        console.log('Dadbot reconnecting');
+        Logger.log('Dadbot reconnecting');
         resolve();
     });
 }
 
 export function disconnect() {
     return new  Promise((resolve) => {
-        console.log('Dadbot disconnected');
+        Logger.log('Dadbot disconnected');
         resolve();
     });
 }

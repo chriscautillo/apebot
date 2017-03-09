@@ -1,3 +1,4 @@
+import Logger from './Interfaces/Logger'
 import * as Status from './Events/Status'
 import * as Message from './Events/Message/Message'
 
@@ -39,7 +40,7 @@ export default class DadBot {
             // Alias user information
             this.user = this.client.user
         } catch(ex) {
-            console.log(ex)
+            Logger.log(ex)
         }
     }
 }
