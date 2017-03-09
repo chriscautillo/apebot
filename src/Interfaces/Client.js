@@ -35,6 +35,8 @@ export default class Client
                         console.log(ex)
                         console.log('Error handling ' + event)
                     })
+                } else {
+                    console.warn('Handler for event ' + event + ' did not return a promise.')
                 }
             } catch(ex) {
                 console.log(ex)
